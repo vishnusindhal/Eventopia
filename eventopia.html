@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eventopia</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -27,17 +27,73 @@
         </div>
     </header>
     <main>
-        <div class="image-gallery">
-            <img src="/image1.jpeg" alt="Image 1">
-            <img src="/image2.jpeg" alt="Image 2">
-            <img src="/image3.jpeg" alt="Image 3">
-            <img src="/image4.jpeg" alt="Image 4">
-            <img src="/image5.jpeg" alt="Image 5">
-            <img src="/image6.jpg" alt="Image 6">
-            <img src="/image7.jpg" alt="Image 7">
-            <img src="/image8.jpg" alt="Image 8">
+        <div class="row">
+            <div class="column">
+                <img src="image1.jpeg">
+                <img src="image2.jpeg">
+                <img src="image3.jpeg">
+            </div>
+            <div class="column">
+                <img src="image1.jpeg">
+                <img src="image2.jpeg">
+                <img src="image3.jpeg">
+            </div>
+            <div class="column">
+                <img src="image1.jpeg">
+                <img src="image2.jpeg">
+                <img src="image3.jpeg">
+            </div>
         </div>
+
+        <section class="why-eventopia">
+            <h2>Why Choose <span>Eventopia?</span></h2>
+            <div class="features-container">
+                <div class="feature-box">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Effortless Event Management</h3>
+                    <p>Seamless scheduling, planning, and execution of IIT, NIT, and IIIT events.</p>
+                </div>
+
+                <div class="feature-box">
+                    <i class="fas fa-users"></i>
+                    <h3>Wider Audience Reach</h3>
+                    <p>Attract students, tech enthusiasts, and professionals with our vast network.</p>
+                </div>
+
+                <div class="feature-box">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Live Notifications</h3>
+                    <p>Instant updates, announcements, and reminders to keep attendees informed.</p>
+                </div>
+
+                <div class="feature-box">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Competitions & Leaderboards</h3>
+                    <p>Automated tracking of event winners and rankings in real-time.</p>
+                </div>
+
+                <div class="feature-box">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Hassle-free Ticketing</h3>
+                    <p>Simple registrations and ticket management with secure payment options.</p>
+                </div>
+            </div>
+        </section>
     </main>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            loop: true,
+            autoplay: {
+                delay: 3000,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
 </body>
 
 </html>
