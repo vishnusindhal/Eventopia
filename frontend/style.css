@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.navbar {
+    height: 80px;
+    background-color: #0f1111;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav_logo {
+    height: 70px;
+    width: 115px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    background-image: url("/eventopia.png");
+    background-size: cover;
+    height: 50px;
+    width: 110px;
+}
+
+.nav_det {
+    display: flex;
+    align-items: center;
+}
+
+.nav_link {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+.nav_link:hover {
+    color: #ffcc00;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    /* Same padding from all sides */
+    background: url('back.jpg') no-repeat center center/cover;
+    /* Background Image */
+}
+
+
+/* Image container */
+
+.column {
+    flex: 25%;
+    max-width: 25%;
+    padding: 5px;
+    /* Spacing between images */
+}
+
+
+/* Default Image Styling */
+
+.column img {
+    margin-top: 8px;
+    vertical-align: middle;
+    width: 100%;
+    border-radius: 10px;
+    /* Rounded corners */
+    background-color: transparent;
+    /* Transparent background */
+    transition: transform 0.3s ease;
+    /* Smooth Zoom Effect */
+}
+
+
+/* Hover Effect on Image */
+
+.column img:hover {
+    transform: scale(1.05);
+    /* Slightly Increase Size */
+}
+
+
+/* Responsive layout - Two-column layout for smaller screens */
+
+@media screen and (max-width: 800px) {
+    .column {
+        flex: 50%;
+        max-width: 50%;
+    }
+}
+
+
+/* Responsive layout - Full width on very small screens */
+
+@media screen and (max-width: 600px) {
+    .column {
+        flex: 100%;
+        max-width: 100%;
+    }
+}
+
+.why-eventopia {
+    text-align: center;
+    padding: 60px 20px;
+    background: #111111;
+    color: #ffffff;
+}
+
+.why-eventopia h2 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.why-eventopia h2 span {
+    color: #ff3b3f;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feature-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.feature-box:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.feature-box i {
+    font-size: 40px;
+    color: #ff3b3f;
+    margin-bottom: 15px;
+}
+
+.feature-box h3 {
+    font-size: 1.2rem;
+}
+
+.feature-box p {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.colleges {
+    text-align: center;
+    padding: 50px 20px;
+    background: white;
+}
+
+.colleges h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    margin-top: -12px;
+}
+
+
+/* College Boxes */
+
+.college-container {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+.college-box {
+    width: 200px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    background: #93da72;
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+}
+
+
+/* Hover Effect */
+
+.college-box:hover {
+    transform: scale(1.1);
+    background: #3c6e0e;
+}
+
+.admin-mentor-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px;
+    background: #f9f9f9;
+}
+
+.admin-box,
+.mentor-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px;
+    height: 340px;
+}
+
+.admin-box h2,
+.mentor-box h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.admin-members,
+.mentor-members {
+    display: flex;
+    justify-content: center;
+    gap: 55px;
+}
+
+.member {
+    text-align: center;
+}
+
+.profile-pic1 {
+    width: 150px;
+    height: 150px;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 15px auto 10px;
+    background: url(./p1.jpg)no-repeat;
+    background-size: cover;
+}
+
+.profile-pic2 {
+    width: 150px;
+    height: 150px;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 15px auto 10px;
+}
+
+.profile-pic3 {
+    width: 150px;
+    height: 150px;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 15px auto 10px;
+}
+
+.profile-pic4 {
+    width: 150px;
+    height: 150px;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 15px auto 10px;
+}
+
+.member p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.member span {
+    font-size: 1.1rem;
+    color: rgb(45, 42, 38);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #111111;
+    padding: 20px;
+}
+
+.col {
+    flex: 1;
+    margin: 0 10px;
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+}

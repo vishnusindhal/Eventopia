@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIIT Colleges</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .college-card {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            height: 170px;
+            width: 150px;
+        }
+        
+        .college-logo1 {
+            width: 130px;
+            background-image: url("iiithyd.jpeg");
+            background-size: contain;
+            /* Adjust based on your logo size */
+            height: 130px;
+            border-radius: 50%;
+            /* For circular logos */
+            /* background: #e2e2e2; */
+            /* Placeholder color */
+            margin: 0 auto;
+        }
+        
+        .college-logo2 {
+            width: 130px;
+            background-image: url("iiitban.png");
+            background-size: contain;
+            /* Adjust based on your logo size */
+            height: 130px;
+            border-radius: 50%;
+            /* For circular logos */
+            /* background: #e2e2e2; */
+            /* Placeholder color */
+            margin: 0 auto;
+        }
+        
+        .college-logo3 {
+            width: 130px;
+            background-image: url("iiitall.png");
+            background-size: contain;
+            /* Adjust based on your logo size */
+            height: 130px;
+            border-radius: 50%;
+            /* For circular logos */
+            /* background: #e2e2e2; */
+            /* Placeholder color */
+            margin: 0 auto;
+        }
+        
+        .college-name {
+            margin-top: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>IIIT Colleges</h1>
+    <div class="grid-container">
+        <a href="event.html">
+            <div class="college-card">
+                <div class="college-logo1"></div>
+                <div class="college-name">IIIT Hyderabad</div>
+            </div>
+        </a>
+
+        <a href="event.html">
+            <div class="college-card">
+                <div class="college-logo2"></div>
+                <div class="college-name">IIIT Bangalore</div>
+            </div>
+        </a>
+
+        <a href="event.html">
+            <div class="college-card">
+                <div class="college-logo3"></div>
+                <div class="college-name">IIIT Allahabad</div>
+            </div>
+        </a>
+
+
+    </div>
+
+</body>
+
+</html>

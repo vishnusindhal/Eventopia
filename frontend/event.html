@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #8e44ad;
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        
+        .register-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .register-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Upcoming Events</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>SI No.</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Venue</th>
+                <th>Date & Time</th>
+                <th>Register</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><img src="danceholic.jpg" alt="DANCAHOLIC" width="50"></td>
+                <td>DANCAHOLIC</td>
+                <td>Cultural</td>
+                <td>Display your individual brilliance, be the star of the stage that's all yours...</td>
+                <td>Main Stage, Canara Engineering College</td>
+                <td>12th December at 2:00 PM</td>
+                <td><button class="register-btn" onclick="window.location.href='registration.html'">Register</button></td>
+
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><img src="howzzat.png" alt="HOWZZAT!" width="50"></td>
+                <td>HOWZZAT!</td>
+                <td>Sports</td>
+                <td>Apna time aayega....if you can spin it, then swing it!!</td>
+                <td>Basketball Court, Canara Engineering College</td>
+                <td>20th December at 3:00 PM</td>
+                <td><button class="register-btn" onclick="window.location.href='registration.html'">Register</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><img src="hackathon.png" alt="HACKTHON" width="50"></td>
+                <td>HACKATHON</td>
+                <td>Technical</td>
+                <td>Theme: Advancing Technology for Humanity – Hack Innovate Create</td>
+                <td>Cyber Center, Sahyadri Engineering College</td>
+                <td>28th December at 10:00 PM</td>
+                <td><button class="register-btn" onclick="window.location.href='registration.html'">Register</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
