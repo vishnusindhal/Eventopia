@@ -1,64 +1,78 @@
-const express = require('express');
-const router = express.Router();
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const User = require('../models/User');
 
-// Register endpoint
-router.post('/register', async (req, res) => {
-    try {
-        // Input validation
-        const { username, email, password } = req.body;
-        
-        if (!username || !email || !password) {
-            return res.status(400).json({ 
-                error: 'Username, email and password are required' 
-            });
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: [true, 'Username is required'],
+        unique: true,
+        trim: true,
+        minlength: [3, 'Username must be at least 3 characters'],
+        maxlength: [30, 'Username cannot exceed 30 characters'],
+        match: [/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores']
+    },
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: true,
+        trim: true,
+        lowercase: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address']
+    },
+    password: {
+        type: String,
+        required: [true, 'Password is required'],
+        minlength: [6, 'Password must be at least 6 characters'],
+        select: false // Hide password in all queries
+    },
+    lastLogin: {
+        type: Date
+    },
+    active: {
+        type: Boolean,
+        default: true
+    }
+}, {
+    timestamps: true,
+    toJSON: {
+        virtuals: true,
+        transform(doc, ret) {
+            delete ret.password;
+            delete ret.__v;
+            return ret;
         }
-
-        // Validate email format
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-            return res.status(400).json({ error: 'Invalid email format' });
+    },
+    toObject: {
+        virtuals: true,
+        transform(doc, ret) {
+            delete ret.password;
+            delete ret.__v;
+            return ret;
         }
-
-        // Validate password strength
-        if (password.length < 6) {
-            return res.status(400).json({ 
-                error: 'Password must be at least 6 characters' 
-            });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        
-        const user = new User({ 
-            username,
-            email,
-            password: hashedPassword
-        });
-        
-        await user.save();
-        
-        res.status(201).json({ 
-            success: true,
-            message: 'Registration successful!',
-            user: {
-                username: user.username,
-                email: user.email
-            }
-        });
-        
-    } catch (err) {
-        // Handle duplicate email error
-        if (err.code === 11000) {
-            return res.status(400).json({ 
-                success: false,
-                error: 'Email already exists' 
-            });
-        }
-        res.status(400).json({ 
-            success: false,
-            error: err.message 
-        });
     }
 });
 
-module.exports = router;
+// Hash password before saving
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Compare passwords
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
+
+// Update last login
+userSchema.methods.updateLastLogin = async function () {
+    this.lastLogin = new Date();
+    await this.save();
+};
+
+module.exports = mongoose.model('User', userSchema);
