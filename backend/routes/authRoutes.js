@@ -1,78 +1,94 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User');
 
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: [true, 'Username is required'],
-        unique: true,
-        trim: true,
-        minlength: [3, 'Username must be at least 3 characters'],
-        maxlength: [30, 'Username cannot exceed 30 characters'],
-        match: [/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores']
-    },
-    email: {
-        type: String,
-        required: [true, 'Email is required'],
-        unique: true,
-        trim: true,
-        lowercase: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address']
-    },
-    password: {
-        type: String,
-        required: [true, 'Password is required'],
-        minlength: [6, 'Password must be at least 6 characters'],
-        select: false // Hide password in all queries
-    },
-    lastLogin: {
-        type: Date
-    },
-    active: {
-        type: Boolean,
-        default: true
-    }
-}, {
-    timestamps: true,
-    toJSON: {
-        virtuals: true,
-        transform(doc, ret) {
-            delete ret.password;
-            delete ret.__v;
-            return ret;
-        }
-    },
-    toObject: {
-        virtuals: true,
-        transform(doc, ret) {
-            delete ret.password;
-            delete ret.__v;
-            return ret;
-        }
-    }
-});
-
-// Hash password before saving
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
+// Register endpoint
+router.post('/register', async (req, res) => {
     try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
+        const { username, email, password } = req.body;
+
+        // Basic input validation
+        if (!username || !email || !password) {
+            return res.status(400).json({ error: 'Username, email and password are required' });
+        }
+
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            return res.status(400).json({ error: 'Invalid email format' });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({ error: 'Password must be at least 6 characters' });
+        }
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+        if (existingUser) {
+            return res.status(400).json({ error: 'User with this email or username already exists' });
+        }
+
+        // Create user (password will be hashed by model middleware)
+        const user = new User({ username, email, password });
+        await user.save();
+
+        res.status(201).json({
+            success: true,
+            message: 'Registration successful!',
+            user: {
+                username: user.username,
+                email: user.email
+            }
+        });
+
     } catch (err) {
-        next(err);
+        res.status(500).json({ success: false, error: err.message });
     }
 });
 
-// Compare passwords
-userSchema.methods.comparePassword = async function (candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
-};
+module.exports = router;
 
-// Update last login
-userSchema.methods.updateLastLogin = async function () {
-    this.lastLogin = new Date();
-    await this.save();
-};
+const jwt = require('jsonwebtoken'); // if you're using JWT (optional)
 
-module.exports = mongoose.model('User', userSchema);
+// Login endpoint
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check if both fields are present
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and password are required' });
+        }
+
+        // Find user by email and include password field
+        const user = await User.findOne({ email }).select('+password');
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        // Update last login time
+        await user.updateLastLogin();
+
+        // Generate JWT token (optional)
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'secret', {
+            expiresIn: '1d'
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Login successful!',
+            token, // you can use this on frontend if needed
+            user: {
+                username: user.username,
+                email: user.email
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Server error: ' + err.message });
+    }
+});
+
